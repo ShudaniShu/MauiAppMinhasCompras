@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMinhasCompras.Views.ListaProdutos"
+             Title="Produtos">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Button Text="Novo Produto"
+                Clicked="OnNovoProdutoClicked"
+                BackgroundColor="Purple"
+                TextColor="White" />
+
+        <CollectionView x:Name="cvProdutos">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="0,5">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Descricao}" FontSize="18" />
+                            <Label Text="{Binding Quantidade, StringFormat='Qtd: {0}'}" />
+                            <Label Text="{Binding Preco, StringFormat='Preço: {0:F2}'}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+
+</ContentPage>

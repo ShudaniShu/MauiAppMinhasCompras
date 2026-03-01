@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMinhasCompras.Views.NovoProduto"
+             Title="Novo Produto">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Entry x:Name="txtDescricao"
+               Placeholder="Descrição do Produto" />
+
+        <Entry x:Name="txtQuantidade"
+               Placeholder="Quantidade"
+               Keyboard="Numeric" />
+
+        <Entry x:Name="txtPreco"
+               Placeholder="Preço"
+               Keyboard="Numeric" />
+
+        <Button Text="Salvar"
+                Clicked="OnSalvarClicked"
+                BackgroundColor="Purple"
+                TextColor="White"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>
