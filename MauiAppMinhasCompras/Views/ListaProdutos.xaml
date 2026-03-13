@@ -11,6 +11,11 @@
                 BackgroundColor="Purple"
                 TextColor="White" />
 
+        <SearchBar 
+            x:Name="searchProdutos"
+            Placeholder="Buscar produto"
+            TextChanged="OnSearchTextChanged"/>
+
         <CollectionView x:Name="cvProdutos">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
