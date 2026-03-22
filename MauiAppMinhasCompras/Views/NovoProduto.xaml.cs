@@ -6,6 +6,7 @@ namespace MauiAppMinhasCompras.Views
     public partial class NovoProduto : ContentPage
     {
         SQLiteDatabaseHelper _db;
+        Produto produtoAtual;
 
         public NovoProduto(SQLiteDatabaseHelper db)
         {
@@ -13,28 +14,59 @@ namespace MauiAppMinhasCompras.Views
             _db = db;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            try
+            {
+                produtoAtual = BindingContext as Produto;
+
+                if (produtoAtual != null)
+                {
+                    txtDescricao.Text = produtoAtual.Descricao;
+                    txtQuantidade.Text = produtoAtual.Quantidade.ToString();
+                    txtPreco.Text = produtoAtual.Preco.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Erro", ex.Message, "OK");
+            }
+        }
+
         private async void OnSalvarClicked(object sender, EventArgs e)
         {
             try
             {
-                var produto = new Produto
+                Produto p = new Produto
                 {
                     Descricao = txtDescricao.Text,
-                    Quantidade = int.Parse(txtQuantidade.Text),
-                    Preco = double.Parse(txtPreco.Text)
+                    Quantidade = Convert.ToInt32(txtQuantidade.Text),
+                    Preco = Convert.ToDouble(txtPreco.Text)
                 };
 
-                await _db.Insert(produto);
+                if (produtoAtual != null)
+                {
+                    // EDITAR
+                    p.Id = produtoAtual.Id;
+                    await _db.Update(p);
 
-                await DisplayAlert("Sucesso", "Produto salvo!", "OK");
+                    await DisplayAlert("Sucesso", "Produto atualizado!", "OK");
+                }
+                else
+                {
+                    // NOVO
+                    await _db.Insert(p);
 
-                txtDescricao.Text = "";
-                txtQuantidade.Text = "";
-                txtPreco.Text = "";
+                    await DisplayAlert("Sucesso", "Produto cadastrado!", "OK");
+                }
+
+                await Navigation.PopAsync();
             }
-            catch
+            catch (Exception ex)
             {
-                await DisplayAlert("Atenção", "Preencha os campos corretamente.", "OK");
+                await DisplayAlert("Erro", ex.Message, "OK");
             }
         }
     }

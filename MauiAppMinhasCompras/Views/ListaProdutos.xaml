@@ -4,32 +4,49 @@
              x:Class="MauiAppMinhasCompras.Views.ListaProdutos"
              Title="Produtos">
 
-    <VerticalStackLayout Padding="20" Spacing="10">
+    <Grid Padding="20" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <Button Text="Novo Produto"
+        <Button Grid.Row="0"
+                Text="Novo Produto"
                 Clicked="OnNovoProdutoClicked"
                 BackgroundColor="Purple"
                 TextColor="White" />
 
-        <SearchBar 
-            x:Name="searchProdutos"
-            Placeholder="Buscar produto"
-            TextChanged="OnSearchTextChanged"/>
+        <SearchBar Grid.Row="1"
+                   x:Name="searchProdutos"
+                   Placeholder="Buscar produto"
+                   TextChanged="OnSearchTextChanged" />
 
-        <CollectionView x:Name="cvProdutos">
-            <CollectionView.ItemTemplate>
+        <ListView Grid.Row="2"
+                  x:Name="lvProdutos"
+                  ItemSelected="OnItemSelected"
+                  HasUnevenRows="True"
+                  VerticalOptions="FillAndExpand">
+
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="10" Margin="0,5">
-                        <VerticalStackLayout>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Excluir"
+                                      Clicked="OnExcluirClicked"
+                                      IsDestructive="True" />
+                        </ViewCell.ContextActions>
+
+                        <StackLayout Padding="10">
                             <Label Text="{Binding Descricao}" FontSize="18" />
                             <Label Text="{Binding Quantidade, StringFormat='Qtd: {0}'}" />
                             <Label Text="{Binding Preco, StringFormat='Preço: {0:F2}'}" />
-                        </VerticalStackLayout>
-                    </Frame>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
 
-    </VerticalStackLayout>
+        </ListView>
+    </Grid>
 
 </ContentPage>

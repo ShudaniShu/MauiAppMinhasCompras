@@ -27,5 +27,11 @@ namespace MauiAppMinhasCompras.Helpers
         {
             return _conn.Table<Produto>().DeleteAsync(i => i.Id == id);
         }
+
+        // 🔹 NOVO MÉTODO (ESSENCIAL)
+        public Task<int> Update(Produto p)
+        {
+            return _conn.UpdateAsync(p);
+        }
     }
 }
