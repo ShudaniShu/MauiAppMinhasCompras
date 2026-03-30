@@ -13,9 +13,14 @@
                Placeholder="Quantidade"
                Keyboard="Numeric" />
 
+        <!-- 🔥 PREÇO COM R$ -->
         <Entry x:Name="txtPreco"
-               Placeholder="Preço"
+               Placeholder="Preço (R$)"
                Keyboard="Numeric" />
+
+        <!-- 🔥 DATA COM FORMATO BR -->
+        <DatePicker x:Name="dtData"
+                    Format="dd/MM/yyyy" />
 
         <Button Text="Salvar"
                 Clicked="OnSalvarClicked"

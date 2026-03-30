@@ -8,21 +8,40 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!-- BOTÃO -->
         <Button Grid.Row="0"
                 Text="Novo Produto"
                 Clicked="OnNovoProdutoClicked"
                 BackgroundColor="Purple"
                 TextColor="White" />
 
+        <!-- BUSCA -->
         <SearchBar Grid.Row="1"
                    x:Name="searchProdutos"
                    Placeholder="Buscar produto"
                    TextChanged="OnSearchTextChanged" />
 
-        <ListView Grid.Row="2"
+        <!-- FILTRO POR DATA -->
+        <HorizontalStackLayout Grid.Row="2" Spacing="10">
+
+            <DatePicker x:Name="dtInicio"
+                        Format="dd/MM/yyyy" />
+
+            <DatePicker x:Name="dtFim"
+                        Format="dd/MM/yyyy" />
+
+            <Button Text="Filtrar"
+                    Clicked="OnFiltrarClicked"
+                    BackgroundColor="Gray"
+                    TextColor="White"/>
+        </HorizontalStackLayout>
+
+        <!-- LISTA -->
+        <ListView Grid.Row="3"
                   x:Name="lvProdutos"
                   ItemSelected="OnItemSelected"
                   HasUnevenRows="True"
@@ -41,6 +60,9 @@
                             <Label Text="{Binding Descricao}" FontSize="18" />
                             <Label Text="{Binding Quantidade, StringFormat='Qtd: {0}'}" />
                             <Label Text="{Binding Preco, StringFormat='Preço: {0:F2}'}" />
+                            <Label Text="{Binding DataCadastro, StringFormat='Data: {0:dd/MM/yyyy}'}"
+                                   FontSize="12"
+                                   TextColor="Gray"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

@@ -1,5 +1,6 @@
 ﻿using MauiAppMinhasCompras.Helpers;
 using MauiAppMinhasCompras.Views;
+using System.Globalization;
 
 namespace MauiAppMinhasCompras;
 
@@ -10,6 +11,11 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
+
+        // 🔥 DEFINIR CULTURA BRASILEIRA
+        var cultura = new CultureInfo("pt-BR");
+        CultureInfo.DefaultThreadCurrentCulture = cultura;
+        CultureInfo.DefaultThreadCurrentUICulture = cultura;
 
         string dbPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),

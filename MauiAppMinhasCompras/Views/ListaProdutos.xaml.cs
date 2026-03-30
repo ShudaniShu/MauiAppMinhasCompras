@@ -61,6 +61,26 @@ namespace MauiAppMinhasCompras.Views
             }
         }
 
+        // 🔥 NOVO: FILTRO POR DATA
+        private void OnFiltrarClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var inicio = dtInicio.Date;
+                var fim = dtFim.Date;
+
+                var filtrados = listaProdutos
+                    .Where(p => p.DataCadastro >= inicio && p.DataCadastro <= fim)
+                    .ToList();
+
+                lvProdutos.ItemsSource = filtrados;
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Erro", ex.Message, "OK");
+            }
+        }
+
         // 🔹 SELECIONAR ITEM (EDITAR)
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -102,7 +122,6 @@ namespace MauiAppMinhasCompras.Views
                     await _db.Delete(produto.Id);
                     await DisplayAlert("Sucesso", "Produto excluído.", "OK");
 
-                    // Atualiza a lista
                     OnAppearing();
                 }
             }
